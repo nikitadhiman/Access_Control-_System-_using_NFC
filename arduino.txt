@@ -1,0 +1,38 @@
+const int GledPin = 13;
+const int RledPin = 12;
+const int NledPin = 11; // the pin that the LED is attached to - change this if you have a separate LED connected to another pin
+int incomingByte;      // a variable to read incoming serial data into
+ 
+void setup() {
+  // initialize serial communication:
+  Serial.begin(9600);
+  // initialize the LED pin as an output:
+  pinMode(GledPin, OUTPUT);
+  pinMode(RledPin, OUTPUT);
+  pinMode(NledPin, OUTPUT);
+}
+ 
+void loop() {
+  // see if there's incoming serial data:
+  if (Serial.available() > 0) {
+    // read the oldest byte in the serial buffer:
+    incomingByte = Serial.read();
+    // if it's a capital H (ASCII 72), turn on the LED:
+    if (incomingByte == 'H') {
+      digitalWrite(GledPin, HIGH);
+      digitalWrite(RledPin, LOW);
+            digitalWrite(NledPin, LOW);
+    }
+    // if it's an L (ASCII 76) turn off the LED:
+    if (incomingByte == 'L') {
+      digitalWrite(GledPin, LOW);
+      digitalWrite(RledPin, HIGH);
+            digitalWrite(NledPin, LOW);
+    }
+      if (incomingByte == 'N') {
+      digitalWrite(GledPin, LOW);
+      digitalWrite(RledPin, LOW);
+      digitalWrite(NledPin, HIGH);
+    }
+  }
+}
